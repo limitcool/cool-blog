@@ -7,21 +7,21 @@ import (
 	"strings"
 )
 
-//对字符串进行MD5加密
+// Md5 对字符串进行MD5算法
 func Md5(inputStr string) string {
 	h := md5.New()
-	h.Write([]byte(inputStr)) // 需要加密的字符串为
+	h.Write([]byte(inputStr))
 	str := strings.ToUpper(hex.EncodeToString(h.Sum(nil)))
 	return str
 }
 
-//base64字符加密
+// Base64EncodeWithString base64字符加密
 func Base64EncodeWithString(input string) string {
 
 	return base64.StdEncoding.EncodeToString([]byte(input))
 }
 
-//base64字符解密
+// Base64DecodeWithString base64字符解密
 func Base64DecodeWithString(input string) (string, error) {
 
 	data, err := base64.StdEncoding.DecodeString(input)
