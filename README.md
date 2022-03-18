@@ -3,14 +3,15 @@
 ## 项目介绍
 个人自用的Go博客系统的后端服务,采用gin框架+mysql数据库构建,目前正在实现中。
 
-| 引用框架                  | 项目地址                                               |
-| ------------------------- | ------------------------------------------------------ |
-| WEB框架: Gin              | Gin: https://gin-gonic.com/                            |
-| ORM框架: Gorm             | Gorm: https://gorm.io/                                 |
-| SQL数据库: Mysql8.0       | Mysql: https://www.mysql.com/                          |
-| 用户认证: Json Web Token  | Jwt-go: https://github.com/golang-jwt/jwt              |
-| 验证码系统: base64Captcha | base64Captcha: https://github.com/mojocn/base64Captcha |
-| api文档生成: gin-swagger  | gin-swagger: https://github.com/swaggo/gin-swagger     |
+| 引用框架                     | 项目地址                                               |
+| ---------------------------- | ------------------------------------------------------ |
+| WEB框架: **Gin**             | **Gin**: https://gin-gonic.com/                        |
+| ORM框架: **Gorm**            | **Gorm**: https://gorm.io/                             |
+| SQL数据库: **Mysql8.0**      | **Mysql**: https://www.mysql.com/                      |
+| 用户认证: **Json Web Token**     | **Jwt-go**: https://github.com/golang-jwt/jwt          |
+| 验证码系统: **base64Captcha** | **base64Captcha**: https://github.com/mojocn/base64Captcha |
+| api文档生成: **gin-swagger** | **gin-swagger**: https://github.com/swaggo/gin-swagger |
+| 配置文件解析: **viper**        | **viper**: https://github.com/spf13/viper              |
 
 ## 填写配置文件
 ``` yaml
