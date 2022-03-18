@@ -1,1 +1,2 @@
-configs/*.yaml
+configs/config.yaml
+storage/uploads/*

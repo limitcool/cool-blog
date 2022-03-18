@@ -3,10 +3,12 @@ package route
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/limitcool/blog/common/captcha"
+	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/controller"
 	dao2 "github.com/limitcool/blog/internal/dao"
 	"github.com/limitcool/blog/internal/middleware"
 	"github.com/limitcool/blog/route/api"
+	"net/http"
 )
 
 func NewRouter() *gin.Engine {
@@ -22,6 +24,8 @@ func NewRouter() *gin.Engine {
 	r.POST("/register", user.Register)
 	r.GET("/getCaptcha", captcha.GenerateCaptcha)
 	r.GET("/verifyCaptcha", captcha.CaptchaVerify)
+	r.POST("/upload/file", controller.NewUpload().UploadFile)
+	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 	{
 		apiV1.GET("/articles/cookie", dao2.Cookie)
 		apiV1.POST("/create", articles.Create)
