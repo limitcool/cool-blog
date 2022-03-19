@@ -1,0 +1,23 @@
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /auth                     --> github.com/limitcool/blog/route/api.GetAuth (3 handlers)
+[GIN-debug] POST   /login                    --> github.com/limitcool/blog/internal/controller.UserController.Login-fm (3 handlers)
+[GIN-debug] POST   /register                 --> github.com/limitcool/blog/internal/controller.UserController.Register-fm (3 handlers)
+[GIN-debug] GET    /getCaptcha               --> github.com/limitcool/blog/common/captcha.GenerateCaptcha (3 handlers)
+[GIN-debug] GET    /verifyCaptcha            --> github.com/limitcool/blog/common/captcha.CaptchaVerify (3 handlers)
+[GIN-debug] POST   /upload/file              --> github.com/limitcool/blog/internal/controller.Uplaod.UploadFile-fm (3 handlers)
+[GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] GET    /api/v1/articles/articles/cookie --> github.com/limitcool/blog/internal/dao.Cookie (4 handlers)
+[GIN-debug] POST   /api/v1/articles/create   --> github.com/limitcool/blog/internal/controller.ArticleController.Create-fm (4 handlers)
+[GIN-debug] POST   /api/v1/articles/new_create --> github.com/limitcool/blog/internal/controller.ArticleController.NewCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/articles/:article_id --> github.com/limitcool/blog/internal/dao.Article.List-fm (4 handlers)
+[GIN-debug] GET    /api/v1/articles/author/:author_name --> github.com/limitcool/blog/internal/controller.ArticleController.Count-fm (4 handlers)
+[GIN-debug] GET    /api/v1/articles/         --> github.com/limitcool/blog/internal/controller.ArticleController.List-fm (4 handlers)
+[GIN-debug] PUT    /api/v1/articles/:article_id --> github.com/limitcool/blog/internal/controller.ArticleController.Update-fm (4 handlers)
+[GIN-debug] DELETE /api/v1/articles/:article_id --> github.com/limitcool/blog/internal/controller.ArticleController.Delete-fm (4 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on 0.0.0.0:8080

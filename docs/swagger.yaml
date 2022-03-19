@@ -1,0 +1,48 @@
+basePath: /api/v1
+definitions:
+  errcode.Error:
+    type: object
+  service.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: 个人自用的Go博客系统的后端服务,采用gin框架+mysql数据库构建,目前正在实现中。
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://github.com/limitcool/cool-blog
+  title: Blog
+  version: "1.0"
+paths:
+  /login:
+    get:
+      consumes:
+      - application/json
+      description: get accounts
+      parameters:
+      - description: name search by q
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: List accounts
+      tags:
+      - accounts
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
