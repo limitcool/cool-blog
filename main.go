@@ -4,7 +4,7 @@ import (
 	"github.com/limitcool/blog/common/setting"
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/model"
-	route "github.com/limitcool/blog/route"
+	"github.com/limitcool/blog/route"
 	"log"
 	"time"
 )
@@ -43,8 +43,10 @@ func init() {
 // @host      localhost:8080
 
 func main() {
+
 	route := route.NewRouter()
 	route.Run("0.0.0.0:" + global.ServerSetting.HttpPort)
+
 }
 
 func setupSetting() error {

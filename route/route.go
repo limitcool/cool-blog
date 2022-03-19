@@ -15,6 +15,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 func NewRouter() *gin.Engine {
@@ -28,7 +29,9 @@ func NewRouter() *gin.Engine {
 	gin.SetMode("debug")
 	//gin.DefaultWriter = io.MultiWriter(logfile)
 	r.Use(gin.Logger(), gin.Recovery(), middleware.AppInfo())
+	r.Use(middleware.MaxAllowed(200)) //限制每秒最多允许200个请求
 	r.Use(middleware.Cors())
+	r.Use(middleware.ContextTimeout(5 * time.Second))
 	article := dao2.NewArticle()
 	apiV1 := r.Group("/api/v1/articles/")
 	apiV1.Use(middleware.JWT())
@@ -55,6 +58,11 @@ func NewRouter() *gin.Engine {
 		// 通过article_id 删除指定文章
 		apiV1.DELETE("/:article_id", articles.Delete)
 	}
+	r.GET("/sleep", func(c *gin.Context) {
+		time.Sleep(10 * time.Second)
+		c.JSON(200, "OK!!")
+	})
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r
 }

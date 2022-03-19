@@ -60,6 +60,7 @@ require (
 )
 
 require (
+	github.com/juju/ratelimit v1.0.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	golang.org/x/image v0.0.0-20220302094943-723b81ca9867 // indirect
