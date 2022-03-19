@@ -17,6 +17,7 @@ var (
 	TooManyRequests           = NewError(10000007, "请求过多")
 	NotFoundToken             = NewError(10000008, "找不到Token")
 	ErrorUploadFileFail       = NewError(20030001, "上传文件失败")
+	NoPermissions             = NewError(900000001, "权限不足")
 )
 
 type Error struct {
