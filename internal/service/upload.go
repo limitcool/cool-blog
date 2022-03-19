@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/pkg/upload"
 	"github.com/pkg/errors"
 	"mime/multipart"
@@ -22,7 +21,7 @@ func (svc *Service) UploadFile(fileType upload.FileType, file multipart.File, fi
 	if !upload.CheckMaxsize(fileType, file) {
 		return nil, errors.New("文件超出上限！")
 	}
-	uploadSavePath := upload.GetSavePath()
+	uploadSavePath := upload.GetSavePath(fileType)
 	if upload.CheckSavePath(uploadSavePath) {
 		if err := upload.CreateSavePath(uploadSavePath, os.ModePerm); err != nil {
 			return nil, errors.New("创建文件目录失败！")
@@ -35,6 +34,6 @@ func (svc *Service) UploadFile(fileType upload.FileType, file multipart.File, fi
 	if err := upload.SavaFile(fileHeader, dst); err != nil {
 		return nil, err
 	}
-	accessUrl := global.AppSetting.UploadServerUrl + "/" + fileName
+	accessUrl := upload.GetUrlSavePath(fileType) + "/" + fileName
 	return &FileInfo{Name: fileName, AccessUrl: accessUrl}, nil
 }

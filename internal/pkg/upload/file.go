@@ -15,6 +15,7 @@ type FileType int
 
 const (
 	TypeImage FileType = iota + 1
+	TypeMarkdown
 	TypeExcel
 	TypeTxt
 )
@@ -22,6 +23,11 @@ const (
 // GetFileName 获取文件名称，先是通过获取文件后缀并筛出原始文件名进行 MD5 加密，最后返回经过加密处理后的文件名。
 func GetFileName(name string) string {
 	ext := GetFileExt(name)
+	for _, markdownExt := range global.AppSetting.UploadMarkdownAllowExts {
+		if strings.ToUpper(markdownExt) == strings.ToUpper(ext) {
+			return name
+		}
+	}
 	fileName := strings.TrimSuffix(name, ext)
 	fileName = util.Md5(fileName)
 	return fileName + ext
@@ -33,8 +39,27 @@ func GetFileExt(name string) string {
 }
 
 // GetSavePath 获取文件保存地址，这里直接返回配置中的文件保存目录即可，也便于后续的调整。
-func GetSavePath() string {
-	return global.AppSetting.UploadSavePath
+func GetSavePath(t FileType) string {
+	switch t {
+	case TypeImage:
+		return global.AppSetting.UploadSavePath + "/images"
+	case TypeMarkdown:
+		return global.AppSetting.UploadSavePath + "/markdown"
+	default:
+		return global.AppSetting.UploadSavePath
+	}
+}
+
+// GetUrlSavePath 获取文件保存URl，这里直接返回URL
+func GetUrlSavePath(t FileType) string {
+	switch t {
+	case TypeImage:
+		return global.AppSetting.UploadServerUrl + "/images"
+	case TypeMarkdown:
+		return global.AppSetting.UploadServerUrl + "/markdown"
+	default:
+		return global.AppSetting.UploadServerUrl
+	}
 }
 
 // CheckSavePath 检查保存目录是否存在，通过调用 os.Stat 方法获取文件的描述信息 FileInfo，并调用 os.IsNotExist 方法进行判断，其原理是利用 os.Stat 方法所返回的 error 值与系统中所定义的 oserror.ErrNotExist 进行判断，以此达到校验效果
@@ -53,6 +78,12 @@ func CheckContainExt(t FileType, name string) bool {
 				return true
 			}
 		}
+	case TypeMarkdown:
+		for _, allowExt := range global.AppSetting.UploadMarkdownAllowExts {
+			if strings.ToUpper(allowExt) == ext {
+				return true
+			}
+		}
 	}
 	return false
 }
@@ -66,7 +97,12 @@ func CheckMaxsize(t FileType, f multipart.File) bool {
 		if size >= global.AppSetting.UploadImageMaxSize*1024*1024 {
 			return false
 		}
+	case TypeMarkdown:
+		if size >= global.AppSetting.UploadImageMaxSize*1024*1024 {
+			return false
+		}
 	}
+
 	return true
 }
 
