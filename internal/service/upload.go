@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/limitcool/blog/internal/pkg/upload"
+	"github.com/limitcool/blog/common/upload"
 	"github.com/pkg/errors"
 	"mime/multipart"
 	"os"
@@ -15,6 +15,9 @@ type FileInfo struct {
 func (svc *Service) UploadFile(fileType upload.FileType, file multipart.File, fileHeader *multipart.FileHeader) (*FileInfo, error) {
 	// 获取文件所需的基本信息
 	fileName := upload.GetFileName(fileHeader.Filename)
+	if upload.IsMarkdownExist(fileName) {
+		return nil, errors.New("文件已存在")
+	}
 	if !upload.CheckContainExt(fileType, fileName) {
 		return nil, errors.New("文件格式不支持！")
 	}

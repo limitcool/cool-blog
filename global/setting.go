@@ -1,7 +1,7 @@
 package global
 
 import (
-	"github.com/limitcool/blog/internal/pkg/setting"
+	"github.com/limitcool/blog/common/setting"
 )
 
 var (

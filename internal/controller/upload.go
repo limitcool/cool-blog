@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/limitcool/blog/common/errcode"
 	response2 "github.com/limitcool/blog/common/response"
-	"github.com/limitcool/blog/internal/pkg/upload"
+	"github.com/limitcool/blog/common/upload"
 	"github.com/limitcool/blog/internal/service"
 	"log"
 	"strconv"

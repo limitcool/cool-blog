@@ -1,2 +1,3 @@
 configs/config.yaml
 storage/uploads/*
+storage/logs/*

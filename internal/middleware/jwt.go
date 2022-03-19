@@ -3,9 +3,9 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/limitcool/blog/common"
 	"github.com/limitcool/blog/common/errcode"
 	response2 "github.com/limitcool/blog/common/response"
-	"github.com/limitcool/blog/internal/pkg"
 	"log"
 )
 
@@ -24,7 +24,7 @@ func JWT() gin.HandlerFunc {
 			ecode = errcode.NotFoundToken
 		} else {
 			log.Println(token)
-			_, err := pkg.ParseToken(token)
+			_, err := common.ParseToken(token)
 			if err != nil {
 				switch err.(*jwt.ValidationError).Errors {
 				case jwt.ValidationErrorExpired:

@@ -1,4 +1,3 @@
-basePath: /api/v1
 definitions:
   errcode.Error:
     type: object
@@ -27,22 +26,37 @@ info:
   version: "1.0"
 paths:
   /login:
-    get:
+    post:
       consumes:
       - application/json
-      description: get accounts
+      description: 登录
       parameters:
-      - description: name search by q
-        in: query
-        name: q
-        type: string
+      - description: 用户名及密码
+        in: body
+        name: 请求体
+        required: true
+        schema:
+          $ref: '#/definitions/service.LoginRequest'
       produces:
       - application/json
-      responses: {}
-      summary: List accounts
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.LoginRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 登录模块
       tags:
-      - accounts
-securityDefinitions:
-  BasicAuth:
-    type: basic
+      - 登录
 swagger: "2.0"

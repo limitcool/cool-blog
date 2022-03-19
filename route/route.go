@@ -1,19 +1,34 @@
 package route
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/limitcool/blog/common/captcha"
+	_ "github.com/limitcool/blog/docs"
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/controller"
 	dao2 "github.com/limitcool/blog/internal/dao"
 	"github.com/limitcool/blog/internal/middleware"
 	"github.com/limitcool/blog/route/api"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"log"
 	"net/http"
+	"os"
 )
 
 func NewRouter() *gin.Engine {
+
+	logfile, err := os.Create(global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt)
+	log.Println(logfile)
+	if err != nil {
+		fmt.Println("无法创建log文件:", err)
+	}
 	r := gin.New()
-	r.Use(gin.Logger(), gin.Recovery())
+	gin.SetMode("debug")
+	//gin.DefaultWriter = io.MultiWriter(logfile)
+	r.Use(gin.Logger(), gin.Recovery(), middleware.AppInfo())
+	r.Use(middleware.Cors())
 	article := dao2.NewArticle()
 	apiV1 := r.Group("/api/v1/articles/")
 	apiV1.Use(middleware.JWT())
@@ -40,5 +55,6 @@ func NewRouter() *gin.Engine {
 		// 通过article_id 删除指定文章
 		apiV1.DELETE("/:article_id", articles.Delete)
 	}
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r
 }

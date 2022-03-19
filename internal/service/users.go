@@ -1,8 +1,8 @@
 package service
 
 import (
+	"github.com/limitcool/blog/common"
 	"github.com/limitcool/blog/internal/model"
-	"github.com/limitcool/blog/internal/pkg"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 	"log"
@@ -31,7 +31,7 @@ func (svc *Service) CheckLogin(param *LoginRequest) error {
 	if login.UserId > 0 {
 		// 判断密码是否正确
 		if param.Password == login.Password {
-			token, _ := pkg.GenerateToken(param.Username, param.Password)
+			token, _ := common.GenerateToken(param.Username, param.Password)
 			log.Println("生成的Token为:", token)
 			return nil
 		} else {

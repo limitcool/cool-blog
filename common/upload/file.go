@@ -5,6 +5,7 @@ import (
 	"github.com/limitcool/blog/internal/util"
 	"io"
 	"io/ioutil"
+	"log"
 	"mime/multipart"
 	"os"
 	"path"
@@ -31,6 +32,19 @@ func GetFileName(name string) string {
 	fileName := strings.TrimSuffix(name, ext)
 	fileName = util.Md5(fileName)
 	return fileName + ext
+}
+
+func IsMarkdownExist(name string) bool {
+	files, err := ioutil.ReadDir("storage/uploads/markdown")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, f := range files {
+		if f.Name() == name {
+			return true
+		}
+	}
+	return false
 }
 
 // GetFileExt 获取文件后缀，主要是通过调用 path.Ext 方法进行循环查找”.“符号，最后通过切片索引返回对应的文化后缀名称。

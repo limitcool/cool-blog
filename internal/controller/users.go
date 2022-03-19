@@ -10,6 +10,18 @@ import (
 type UserController struct {
 }
 
+// Login 登录模块
+// @Summary      登录模块
+// @Description  登录
+// @Tags         登录
+// @Accept       json
+// @Produce      json
+// @Param        请求体 body service.LoginRequest true  "用户名及密码"
+// @Success      200  {object}  service.LoginRequest
+// @Failure      400  {object}  errcode.Error
+// @Failure      404  {object}  errcode.Error
+// @Failure      500  {object}  errcode.Error
+// @Router       /login [post]
 func (user UserController) Login(c *gin.Context) {
 	// 获取参数和参数校验
 	param := service.LoginRequest{}

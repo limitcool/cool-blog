@@ -26,8 +26,8 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/login": {
-            "get": {
-                "description": "get accounts",
+            "post": {
+                "description": "登录",
                 "consumes": [
                     "application/json"
                 ],
@@ -35,18 +35,46 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "accounts"
+                    "登录"
                 ],
-                "summary": "List accounts",
+                "summary": "登录模块",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "name search by q",
-                        "name": "q",
-                        "in": "query"
+                        "description": "用户名及密码",
+                        "name": "请求体",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.LoginRequest"
+                        }
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/service.LoginRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    }
+                }
             }
         }
     },
@@ -69,11 +97,6 @@ const docTemplate = `{
                 }
             }
         }
-    },
-    "securityDefinitions": {
-        "BasicAuth": {
-            "type": "basic"
-        }
     }
 }`
 
@@ -81,7 +104,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8080",
-	BasePath:         "/api/v1",
+	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Blog",
 	Description:      "个人自用的Go博客系统的后端服务,采用gin框架+mysql数据库构建,目前正在实现中。",
