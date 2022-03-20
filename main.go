@@ -23,6 +23,7 @@ type CasbinRule struct {
 }
 
 func init() {
+
 	// 读取配置文件
 	{
 		err := setupSetting()
@@ -87,6 +88,10 @@ func setupSetting() error {
 		return err
 	}
 	err = setting.ReadSection("Jwt", &global.JwtSetting)
+	if err != nil {
+		return err
+	}
+	err = setting.ReadSection("Pay", &global.PaySetting)
 	if err != nil {
 		return err
 	}

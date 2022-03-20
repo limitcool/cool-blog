@@ -9,4 +9,5 @@ var (
 	AppSetting      *setting.AppSettingS
 	DatabaseSetting *setting.DatabaseSettingS
 	JwtSetting      *setting.JwtSettingS
+	PaySetting      *setting.Pay
 )

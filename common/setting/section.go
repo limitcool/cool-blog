@@ -46,6 +46,13 @@ type JwtSettingS struct {
 	Expire time.Duration // 所签发的 JWT 过期时间，过期时间必须大于签发时间。
 }
 
+// 支付配置
+type Pay struct {
+	AlipayPrivateKey string
+	AlipayAppId      string
+	AlipayPublicKey  string
+}
+
 // 解码key到struct
 func (s *Setting) ReadSection(k string, v interface{}) error {
 	err := s.vp.UnmarshalKey(k, v)

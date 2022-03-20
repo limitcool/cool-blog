@@ -14,6 +14,7 @@
 | 配置文件解析: **viper**        | **viper**: https://github.com/spf13/viper              |
 | 权限管理: **Casbin** | **Casbin**: https://casbin.org/ |
 | **Casbin-gorm-adapter** | **Casbin-gorm-adapter**: https://github.com/casbin/gorm-adapter |
+| 支付功能:**Gopay** | **Gopay**: https://github.com/go-pay/gopay |
 
 ## 填写配置文件
 ``` yaml
@@ -70,6 +71,7 @@ http://127.0.0.1:8080/swagger/index.html
 | 接口限流           |                              |
 | 系统管理员识别     |                              |
 | casbin权限管理系统 |                              |
+| 支付宝支付         |                              |
 
 
 
