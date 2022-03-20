@@ -35,6 +35,7 @@ func NewRouter() *gin.Engine {
 	article := dao2.NewArticle()
 	apiV1 := r.Group("/api/v1/articles/")
 	apiV1.Use(middleware.JWT())
+	apiV1.Use(middleware.CheckCasbinAuth())
 	articles := controller.NewArticleController()
 	r.POST("/auth", api.GetAuth)
 	user := controller.NewUserController()

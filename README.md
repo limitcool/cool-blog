@@ -12,6 +12,8 @@
 | 验证码系统: **base64Captcha** | **base64Captcha**: https://github.com/mojocn/base64Captcha |
 | api文档生成: **gin-swagger** | **gin-swagger**: https://github.com/swaggo/gin-swagger |
 | 配置文件解析: **viper**        | **viper**: https://github.com/spf13/viper              |
+| 权限管理: **Casbin** | **Casbin**: https://casbin.org/ |
+| **Casbin-gorm-adapter** | **Casbin-gorm-adapter**: https://github.com/casbin/gorm-adapter |
 
 ## 填写配置文件
 ``` yaml
@@ -56,17 +58,18 @@ http://127.0.0.1:8080/swagger/index.html
 
 ### 功能列表
 
-| 已实现功能       | 未实现功能                   |
-| ---------------- | ---------------------------- |
-| JWT中间件        | 权限管理系统                 |
-| 数据库回调       | MarkDown渲染                 |
-| 验证码生成及校验 | 标签系统                     |
-| 登录,注册功能    | 日志中间件                   |
-| 文章增删改查     | 自定义验证器                 |
-| 上传文件         | LetsEncrypt 证书自动签发部署 |
-| api文档生成      | 链路追踪                     |
-| 接口限流         |                              |
-| 系统管理员识别   |                              |
+| 已实现功能         | 未实现功能                   |
+| ------------------ | ---------------------------- |
+| JWT中间件          | 链路追踪                     |
+| 数据库回调         | MarkDown渲染                 |
+| 验证码生成及校验   | 标签系统                     |
+| 登录,注册功能      | 日志中间件                   |
+| 文章增删改查       | 自定义验证器                 |
+| 上传文件           | LetsEncrypt 证书自动签发部署 |
+| api文档生成        |                              |
+| 接口限流           |                              |
+| 系统管理员识别     |                              |
+| casbin权限管理系统 |                              |
 
 
 
@@ -77,6 +80,20 @@ http://127.0.0.1:8080/swagger/index.html
 ```yaml
 # 需要确保导入了生成的docs/docs.go文件，这样特定的配置文件才会被初始化
 _ "github.com/limitcool/blog/docs"
+```
+
+### Casbin 注解:
+
+```yaml
+# Casbin-gorm-adapter 
+# 即使使用的是Mysql数据库,Casbin-gorm-adapter也需要安装sqlserver及postgres依赖
+go get gorm.io/driver/postgres
+go get gorm.io/driver/sqlserver
+# casbin数据库字段解析
+- ptype: 类型: g代表角色继承关系,p代表路由访问控制策略
+- v0: RoleID 用于判断用户组别
+- v1: /api/v1/* 代表RoleID可以访问v1内的路由
+- V2: GET 支持RoleID可以进行的访问方式
 ```
 
 

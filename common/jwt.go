@@ -28,7 +28,7 @@ func GenerateToken(username, password string) (string, error) {
 	fmt.Println(expireTime)
 	claims := Claims{
 		// MD5加密Appkey
-		Username: util.Md5(username),
+		Username: username,
 		// MD5加密appSecret
 		Password: util.Md5(password),
 		// RegisteredClaims结构体
