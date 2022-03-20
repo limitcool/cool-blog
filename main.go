@@ -1,13 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
+	"github.com/limitcool/blog/common/markdown"
 	"github.com/limitcool/blog/common/setting"
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/model"
 	"github.com/limitcool/blog/route"
 	"log"
+	"os"
 	"time"
 )
 
@@ -23,7 +26,9 @@ type CasbinRule struct {
 }
 
 func init() {
-
+	z := markdown.Markdown()
+	fmt.Println(z)
+	os.Exit(0)
 	// 读取配置文件
 	{
 		err := setupSetting()
