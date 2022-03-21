@@ -83,6 +83,14 @@ http://127.0.0.1:8080/swagger/index.html
 # 需要确保导入了生成的docs/docs.go文件，这样特定的配置文件才会被初始化
 _ "github.com/limitcool/blog/docs"
 ```
+| 注解     | 描述                                                         |
+| -------- | ------------------------------------------------------------ |
+| @Summary | 摘要                                                         |
+| @Produce | API 可以产生的 MIME 类型的列表，MIME 类型你可以简单的理解为响应类型，例如：json、xml、html 等等 |
+| @Param   | 参数格式，从左到右分别为：参数名、入参类型、数据类型、是否必填、注释 |
+| @Success | 响应成功，从左到右分别为：状态码、参数类型、数据类型、注释   |
+| @Failure | 响应失败，从左到右分别为：状态码、参数类型、数据类型、注释   |
+| @Router  | 路由，从左到右分别为：路由地址，HTTP 方法                    |
 
 ### Casbin 注解:
 
@@ -98,13 +106,10 @@ go get gorm.io/driver/sqlserver
 - V2: GET 支持RoleID可以进行的访问方式
 ```
 
+### bootstrap初始化 注解：
 
+```yaml
+# 在main.go下导入bootstrap
+_ "github.com/limitcool/blog/bootstrap"
+```
 
-| 注解     | 描述                                                         |
-| -------- | ------------------------------------------------------------ |
-| @Summary | 摘要                                                         |
-| @Produce | API 可以产生的 MIME 类型的列表，MIME 类型你可以简单的理解为响应类型，例如：json、xml、html 等等 |
-| @Param   | 参数格式，从左到右分别为：参数名、入参类型、数据类型、是否必填、注释 |
-| @Success | 响应成功，从左到右分别为：状态码、参数类型、数据类型、注释   |
-| @Failure | 响应失败，从左到右分别为：状态码、参数类型、数据类型、注释   |
-| @Router  | 路由，从左到右分别为：路由地址，HTTP 方法                    |
