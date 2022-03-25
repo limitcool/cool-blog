@@ -2,6 +2,8 @@ package markdown
 
 import (
 	"fmt"
+	"github.com/gomarkdown/markdown"
+	"github.com/gomarkdown/markdown/html"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday/v2"
 	"html/template"
@@ -54,4 +56,14 @@ func checkFileIsExist(filename string) bool {
 		exist = false
 	}
 	return exist
+}
+
+// 渲染markdown为html
+func Render(data string) string {
+	htmlFlags := html.CommonFlags | html.HrefTargetBlank
+	opts := html.RendererOptions{Flags: htmlFlags}
+	renderer := html.NewRenderer(opts)
+	md := []byte(data)
+	content := markdown.ToHTML(md, nil, renderer)
+	return string(content)
 }

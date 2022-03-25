@@ -9,8 +9,10 @@ require (
 )
 
 require (
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/go-pay/gopay v1.5.74
 	github.com/golang-jwt/jwt/v4 v4.3.0
+	github.com/gomarkdown/markdown v0.0.0-20220310201231-552c6011c0b8
 	github.com/microcosm-cc/bluemonday v1.0.18
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/pkg/errors v0.9.1
@@ -28,7 +30,6 @@ require (
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/denisenkom/go-mssqldb v0.12.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect

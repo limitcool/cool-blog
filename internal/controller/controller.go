@@ -3,7 +3,10 @@ package controller
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/limitcool/blog/common/errcode"
+	response2 "github.com/limitcool/blog/common/response"
 	"github.com/limitcool/blog/internal/model"
+	"github.com/limitcool/blog/internal/service"
 	"gorm.io/gorm"
 	"net/http"
 	"strconv"
@@ -100,4 +103,23 @@ func (a ArticleController) Delete(c *gin.Context) {
 }
 func NewArticleController() ArticleController {
 	return ArticleController{}
+}
+
+func (a ArticleController) GetHTML(c *gin.Context) {
+	response := response2.NewResponse(c)
+	iArticleId, _ := strconv.Atoi(c.Param("article_id"))
+
+	articleId := uint(iArticleId)
+	svc := service.New(c)
+	content, err := svc.GetHtml(articleId)
+	if err != nil {
+		response.ToResponse(err.Error())
+		return
+	}
+	if content == "" {
+		response.ToErrorResponse(errcode.NotFound)
+	} else {
+		c.String(http.StatusOK, content)
+	}
+
 }

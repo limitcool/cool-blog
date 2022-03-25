@@ -34,8 +34,8 @@ func NewRouter() *gin.Engine {
 	r.Use(middleware.ContextTimeout(5 * time.Second))
 	article := dao2.NewArticle()
 	apiV1 := r.Group("/api/v1/articles/")
-	apiV1.Use(middleware.JWT())
-	apiV1.Use(middleware.CheckCasbinAuth())
+	//apiV1.Use(middleware.JWT())
+	//apiV1.Use(middleware.CheckCasbinAuth())
 	articles := controller.NewArticleController()
 	r.POST("/auth", api.GetAuth)
 	user := controller.NewUserController()
@@ -54,6 +54,8 @@ func NewRouter() *gin.Engine {
 		apiV1.GET("/author/:author_name", articles.Count)
 		// 获取文章列表
 		apiV1.GET("", articles.List)
+		// 获取HTML
+		apiV1.GET("/html/:article_id", articles.GetHTML)
 		// 更新指定文章
 		apiV1.PUT("/:article_id", articles.Update)
 		// 通过article_id 删除指定文章
@@ -63,7 +65,6 @@ func NewRouter() *gin.Engine {
 		time.Sleep(10 * time.Second)
 		c.JSON(200, "OK!!")
 	})
-
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r
 }

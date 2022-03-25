@@ -7,11 +7,11 @@ import (
 	"time"
 )
 
-type Article struct {
-	Id     int    `json:"id"`
-	Title  string `json:"title"`
-	Author string `json:"author"`
-}
+//type Article struct {
+//	Id     int    `json:"id"`
+//	Title  string `json:"title"`
+//	Author string `json:"author"`
+//}
 
 type Articles struct {
 	BaseModel
@@ -22,9 +22,9 @@ type Articles struct {
 	Content    string `json:"content"`                                     // 文章内容
 }
 
-func NewArticle(id int, title, author string) Article {
-	return Article{Id: id, Title: title, Author: author}
-}
+//func NewArticle(id int, title, author string) Article {
+//	return Article{Id: id, Title: title, Author: author}
+//}
 
 func NewArticles() Articles {
 	return Articles{}
@@ -68,7 +68,7 @@ func (a *Articles) Count() int64 {
 	return count
 }
 
-// 文章查询
+// 批量文章查询
 func (a *Articles) List(pageOffset, pageSize int) []*Articles {
 	var articles []*Articles
 	if pageOffset >= 0 && pageSize > 0 {
@@ -94,6 +94,27 @@ func (a *Articles) Update() {
 	global.DB.Where("article_id = ?", a.ArticleId).Save(&a)
 }
 
+// 删除文章
 func (a *Articles) Delete() {
 	global.DB.Where("article_id = ?", a.ArticleId).Delete(&a)
+}
+
+// 获取文章信息
+func (a *Articles) Info() (err error) {
+	if a.ArticleId < 0 {
+		log.Println("输入的ID不正确")
+		return err
+	}
+	err = global.DB.Where("article_id = ?", a.ArticleId).First(&a).Error
+	if err != nil {
+		log.Println(err)
+		log.Println("查询失败")
+		return err
+	}
+	return nil
+}
+
+// Markdown渲染为Html
+func (a *Articles) MarkdownToHtml() {
+
 }
