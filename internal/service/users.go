@@ -1,8 +1,10 @@
 package service
 
 import (
+	"fmt"
 	"github.com/limitcool/blog/common"
 	"github.com/limitcool/blog/internal/model"
+	"github.com/limitcool/blog/internal/util"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 	"log"
@@ -30,7 +32,10 @@ func (svc *Service) CheckLogin(param *LoginRequest) error {
 	}
 	if login.UserId > 0 {
 		// 判断密码是否正确
-		if param.Password == login.Password {
+		// 对传入的密码进行MD5加密
+		md5Password := util.Md5(param.Password)
+		fmt.Println(md5Password)
+		if md5Password == login.Password {
 			token, _ := common.GenerateToken(param.Username, param.Password)
 			log.Println("生成的Token为:", token)
 			return nil

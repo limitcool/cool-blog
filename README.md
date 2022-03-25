@@ -15,6 +15,7 @@
 | 权限管理: **Casbin** | **Casbin**: https://casbin.org/ |
 | **Casbin-gorm-adapter** | **Casbin-gorm-adapter**: https://github.com/casbin/gorm-adapter |
 | 支付功能:**Gopay** | **Gopay**: https://github.com/go-pay/gopay |
+| 雪花算法:**SnowFlake** | **SnowFlake**: https://github.com/bwmarrin/snowflake |
 
 ## 填写配置文件
 ``` yaml

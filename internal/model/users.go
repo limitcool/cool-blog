@@ -1,16 +1,19 @@
 package model
 
 import (
+	"github.com/limitcool/blog/common/snowflake"
 	"github.com/limitcool/blog/global"
+	"github.com/limitcool/blog/internal/util"
 	"log"
 )
 
 type User struct {
-	UserId    uint   `gorm:"primary_key" json:"user_id"`
-	RoleId    string `json:"role_id"`
-	Password  string `json:"password"  binding:"required"`
-	Signature string `json:"signature"`
-	Username  string `json:"username"  binding:"required"`
+	UserId      uint   `gorm:"primary_key" json:"user_id"`
+	RoleId      string `json:"role_id"`
+	Password    string `json:"password"  binding:"required"`
+	Signature   string `json:"signature"`
+	Username    string `json:"username"  binding:"required"`
+	SnowFlakeId int64
 }
 
 func (u User) Login() (User, error) {
@@ -21,9 +24,14 @@ func (u User) Login() (User, error) {
 }
 
 func (u User) Register() (User, error) {
+	// 对密码进行MD5加密
+	md5Password := util.Md5(u.Password)
+	// 生成雪花id
+	snowflakeId := snowflake.GenerateSnowFlakeId()
 	err := global.DB.Create(&User{
-		Password: u.Password,
-		Username: u.Username,
+		Password:    md5Password,
+		Username:    u.Username,
+		SnowFlakeId: snowflakeId,
 	}).Error
 	if err != nil {
 		return User{}, err

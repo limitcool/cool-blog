@@ -1,23 +1,24 @@
-package util
+package snowflake
 
 import (
+	"fmt"
 	"github.com/bwmarrin/snowflake"
-	"time"
+	"github.com/limitcool/blog/global"
+	"log"
 )
 
-var node *snowflake.Node
-
-// 传入起始时间,机械ID
-func SnowFlake(startTime string, machineID int64) (err error) {
-	var st time.Time
-	st, err = time.Parse("2006-01-02", startTime)
+// 生成雪花id
+func GenerateSnowFlakeId() int64 {
+	var err error
+	// Create a new Node with a Node number of 1
+	global.Node, err = snowflake.NewNode(1)
 	if err != nil {
-		return err
+		fmt.Println(err)
+		log.Fatalln("生成雪花ID失败:", err)
 	}
-	snowflake.Epoch = st.UnixNano() / 1000000
-	node, err = snowflake.NewNode(machineID)
-	return
-}
-func ()  {
-	
+
+	// Generate a snowflake ID.
+	id := global.Node.Generate()
+
+	return id.Int64()
 }
