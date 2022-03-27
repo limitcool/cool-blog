@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	_ "github.com/limitcool/blog/bootstrap"
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/route"
+	"time"
 )
 
 // @title           Blog
@@ -23,6 +25,13 @@ import (
 func main() {
 
 	route := route.NewRouter()
+	func() {
+		for {
+			fmt.Println(global.ServerSetting.HttpPort)
+			time.Sleep(1 * time.Second)
+		}
+
+	}()
 	route.Run("0.0.0.0:" + global.ServerSetting.HttpPort)
 
 }
