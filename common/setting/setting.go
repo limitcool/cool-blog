@@ -9,13 +9,13 @@ type Setting struct {
 }
 
 func NewSetting() (*Setting, error) {
-	vp := viper.New()
-	vp.SetConfigName("config")   // 配置文件名
-	vp.AddConfigPath("configs/") // 配置文件路径
-	vp.SetConfigType("yaml")     // 配置文件类型
-	err := vp.ReadInConfig()     // 读取配置文件
+	Vp := viper.New()
+	Vp.SetConfigName("config")   // 配置文件名
+	Vp.AddConfigPath("configs/") // 配置文件路径
+	Vp.SetConfigType("yaml")     // 配置文件类型
+	err := Vp.ReadInConfig()     // 读取配置文件
 	if err != nil {
 		return nil, err
 	}
-	return &Setting{vp}, nil
+	return &Setting{Vp}, nil
 }

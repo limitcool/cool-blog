@@ -16,6 +16,9 @@ type User struct {
 	SnowFlakeId int64
 }
 
+func (u User) TableName() string {
+	return "Users"
+}
 func (u User) Login() (User, error) {
 	//var user User
 	err := global.DB.Table("users").Where("username=?", u.Username).First(&u)

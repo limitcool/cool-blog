@@ -27,7 +27,11 @@ func init() {
 	//os.Exit(0)
 	// 读取配置文件
 	{
-		err := SetupSetting()
+		Setting, err := setting.NewSetting()
+		if err != nil {
+			log.Println("init.setting.NewSetting():", err)
+		}
+		err = ReadConfigToSetting(Setting)
 		if err != nil {
 			log.Fatalf("init.setupSetting err: %v", err)
 		}
@@ -50,11 +54,8 @@ func init() {
 	}
 }
 
-func SetupSetting() error {
-	setting, err := setting.NewSetting()
-	if err != nil {
-		return err
-	}
+func ReadConfigToSetting(setting *setting.Setting) error {
+	var err error
 	err = setting.ReadSection("Server", &global.ServerSetting)
 	if err != nil {
 		return err
