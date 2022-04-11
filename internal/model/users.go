@@ -14,10 +14,14 @@ type User struct {
 	Signature   string `json:"signature"`
 	Username    string `json:"username"  binding:"required"`
 	SnowFlakeId int64
+	Profile     Profile `gorm:"foreignKey:UserId"`
 }
 
+func (u User) name() {
+
+}
 func (u User) TableName() string {
-	return "Users"
+	return "users"
 }
 func (u User) Login() (User, error) {
 	//var user User
@@ -49,4 +53,10 @@ func CheckUserExist(username string) (bool, error) {
 	var count int
 	count = len(u)
 	return count > 0, nil
+}
+
+// GetProfile 获取用户个人资料
+func (u *User) GetProfile() Profile {
+	global.DB.Preload("Profile").Where("user_id = ?", u.UserId).Find(&u)
+	return u.Profile
 }

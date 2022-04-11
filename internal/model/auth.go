@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/limitcool/blog/global"
+	"github.com/limitcool/blog/internal/util"
 )
 
 type Auth struct {
@@ -17,7 +18,9 @@ func (receiver Auth) TableName() string {
 // 对数据库进行查询,返回结构体和查询情况
 func (a Auth) Get() (Auth, error) {
 	var auth Auth
-	db := global.DB.Table("users").Where("username = ? AND password = ?", a.Username, a.Password)
+	// 对传入的密码进行MD5加密
+	md5password := util.Md5(a.Password)
+	db := global.DB.Table("users").Where("username = ? AND password = ?", a.Username, md5password)
 	err := db.First(&auth).Error
 	if err != nil {
 		return auth, err

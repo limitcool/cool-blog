@@ -21,7 +21,7 @@ import (
 func NewRouter() *gin.Engine {
 
 	logfile, err := os.Create(global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt)
-	log.Println(logfile)
+	log.Println("logfile path :", logfile.Name())
 	if err != nil {
 		fmt.Println("无法创建log文件:", err)
 	}

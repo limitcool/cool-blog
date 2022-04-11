@@ -3,7 +3,6 @@ package model
 import (
 	"fmt"
 	"github.com/limitcool/blog/global"
-	"gorm.io/gorm/clause"
 	"log"
 	"time"
 )
@@ -123,8 +122,8 @@ func (a *Articles) MarkdownToHtml() {
 
 // GetTag 获取文章拥有的标签列表
 func (a *Articles) GetTag() []Tag {
-	global.DB = global.DB
-	err := global.DB.Preload("Tags").Preload(clause.Associations).Where("article_id = ?", a.ArticleId).First(&a).Error
+	//err := global.DB.Preload("Tags").Preload(clause.Associations).Where("article_id = ?", a.ArticleId).First(&a).Error
+	err := global.DB.Preload("Tags").Where("article_id = ?", a.ArticleId).First(&a).Error
 	if err != nil {
 		fmt.Println(err)
 	}
