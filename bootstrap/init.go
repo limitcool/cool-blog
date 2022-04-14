@@ -44,6 +44,8 @@ func init() {
 			log.Println(err)
 		}
 	}
+	// 数据库自动创建
+	global.DB.AutoMigrate(&model.Tag{})
 	//初始化casbin
 	{
 		var err error

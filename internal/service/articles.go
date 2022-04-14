@@ -9,7 +9,7 @@ import (
 
 func (svc *Service) GetHtml(aid uint) (string, error) {
 	a := model.NewArticles()
-	a.ArticleId = aid
+	a.ID = aid
 	err := a.Info()
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return "", errors.New("查询的记录不存在")
