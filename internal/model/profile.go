@@ -1,7 +1,7 @@
 package model
 
 type Profile struct {
-	ID   int
+	BaseModel
 	Desc string `json:"desc"`
 	Img  string `json:"img"`
 }

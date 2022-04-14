@@ -52,7 +52,11 @@ func (a ArticleController) NewCreate(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		query.NewCreate()
+		err = query.NewCreate()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err.Error())
+			return
+		}
 		fmt.Println(query.ArticleId)
 		c.JSON(http.StatusOK, query)
 	}

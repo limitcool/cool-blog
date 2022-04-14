@@ -28,9 +28,9 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*gorm.DB, error) {
 		databaseSetting.ParseTime,
 	)), &gorm.Config{Logger: logMode})
 
-	db.Callback().Create().Register("upTimestampForCreateCallback", UpTimestampForCreateCallback)
+	//db.Callback().Create().Register("upTimestampForCreateCallback", UpTimestampForCreateCallback)
 	// 为 UP流程注册一个回调
-	db.Callback().Update().Register("UpdateCallback", TimeStampForUpdateCallback)
+	//db.Callback().Update().Register("UpdateCallback", TimeStampForUpdateCallback)
 	if err != nil {
 		log.Println("err!", err)
 	}

@@ -16,11 +16,12 @@ import (
 type Articles struct {
 	BaseModel
 	ArticleId  uint   `gorm:"primaryKey;AUTO_INCREMENT" json:"article_id"` // 文章id
-	Title      string `json:"title"`                                       // 文章标题
+	Title      string `json:"title" gorm:"unique"`                         // 文章标题
 	ArticleTag string `json:"article_tag"`                                 // 文章标签
 	Author     string `json:"author"`                                      // 作者
 	Content    string `json:"content"`                                     // 文章内容
-	Tags       []Tag  `gorm:"foreignKey:ArticleId"`                        // 标签
+	//MarkdownUrl string `json:"markdown_url"`                                // markdown上传后得到的url
+	Tags []Tag `gorm:"foreignKey:Tid" json:"tags"` // 标签
 }
 
 //func NewArticle(id int, title, author string) Article {
