@@ -15,11 +15,12 @@ import (
 
 type Articles struct {
 	BaseModel
-	Title   string `json:"title" gorm:"unique"` // 文章标题
-	Author  string `json:"author"`              // 作者
-	Content string `json:"content"`             // 文章内容
+	Title   string `json:"title"`   // 文章标题
+	Author  string `json:"author"`  // 作者
+	Content string `json:"content"` // 文章内容
 	//MarkdownUrl string `json:"markdown_url"`                                // markdown上传后得到的url
-	Tags []Tag `gorm:"many2many:articles_tags" json:"tags"` // 标签
+	Tags     []Tag    `gorm:"many2many:articles_tags" json:"tags"` // 标签
+	Category Category `json:"category"`                            // 分类
 }
 
 //func NewArticle(id int, title, author string) Article {

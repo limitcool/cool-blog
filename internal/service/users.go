@@ -23,14 +23,14 @@ type RegisterRequest struct {
 func (svc *Service) CheckLogin(param *LoginRequest) error {
 	log.Println(param.Username, param.Password)
 	login, err := svc.dao.Login(param.Username, param.Password)
-	log.Println(login.UserId)
+	log.Println(login.ID)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return errors.New("用户名不存在!")
 		}
 		return err
 	}
-	if login.UserId > 0 {
+	if login.ID > 0 {
 		// 判断密码是否正确
 		// 对传入的密码进行MD5加密
 		md5Password := util.Md5(param.Password)

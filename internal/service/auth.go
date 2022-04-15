@@ -12,7 +12,7 @@ func (svc *Service) CheckAuth(param *AuthRequest) error {
 	if err != nil {
 		return err
 	}
-	if auth.UserId > 0 {
+	if auth.ID > 0 {
 		return nil
 	}
 	return errors.New("auth info does not exist")

@@ -6,7 +6,7 @@ import (
 )
 
 type Auth struct {
-	UserId   uint   `gorm:"primarykey"`
+	BaseModel
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
@@ -30,7 +30,7 @@ func (a Auth) Get() (Auth, error) {
 
 // 对数据库进行写入
 func (a Auth) Create(u User) {
-	auth := Auth{UserId: u.UserId, Username: u.Username, Password: u.Password}
+	//auth := Auth{ID: u.ID, Username: u.Username, Password: u.Password}
 	//global.DB.Select("id", "app_key", "app_secret").Create(&auth)
-	global.DB.Save(&auth)
+	//global.DB.Save(&auth)
 }

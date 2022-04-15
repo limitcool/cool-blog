@@ -117,3 +117,14 @@ go get gorm.io/driver/sqlserver
 _ "github.com/limitcool/blog/bootstrap"
 ```
 
+```json
+// 注册请求示例
+{
+    "username":"admin",
+    "password":"password",
+    "profile":{
+        "desc":"个人信息描述",
+        "img":"图片URL"
+    }
+}
+```

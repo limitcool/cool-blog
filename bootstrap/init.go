@@ -45,7 +45,7 @@ func init() {
 		}
 	}
 	// 数据库自动创建
-	global.DB.AutoMigrate(&model.Tag{})
+	global.DB.AutoMigrate(&model.Articles{}, &model.User{}, &model.Profile{})
 	//初始化casbin
 	{
 		var err error
