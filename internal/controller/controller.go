@@ -53,7 +53,8 @@ func (a ArticleController) NewCreate(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		err = query.NewCreate()
+
+		err = query.NewCreate(c.GetHeader("token"))
 		if err != nil {
 			c.JSON(http.StatusBadRequest, err.Error())
 			return

@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"github.com/limitcool/blog/common"
 	"github.com/limitcool/blog/global"
 	"log"
 	"time"
@@ -21,6 +22,7 @@ type Articles struct {
 	//MarkdownUrl string `json:"markdown_url"`                                // markdown上传后得到的url
 	Tags     []Tag    `gorm:"many2many:articles_tags" json:"tags"` // 标签
 	Category Category `json:"category"`                            // 分类
+	UserID   uint
 }
 
 //func NewArticle(id int, title, author string) Article {
@@ -52,7 +54,21 @@ func (a *Articles) Create() bool {
 }
 
 // new 新建文章 必须传递指针才能改变原值
-func (a *Articles) NewCreate() error {
+func (a *Articles) NewCreate(token string) error {
+	//err := global.DB.Find(&Category{}, "category_name", &a.Category.CategoryName).Error
+	//if err != nil {
+	//	if err == gorm.ErrRecordNotFound {
+	//		return global.DB.Create(&a).Error
+	//	}
+	//	return err
+	//}
+	//
+	claim, err := common.ParseToken(token)
+	if err != nil {
+		return err
+	}
+	a.UserID = GetIdByUsername(claim.Username)
+	//a.UserID =
 	return global.DB.Create(&a).Error
 }
 
@@ -128,4 +144,11 @@ func (a *Articles) GetTag() []Tag {
 		fmt.Println(err)
 	}
 	return a.Tags
+}
+
+// GetIdByUsername  通过username获取userid
+func GetIdByUsername(username string) uint {
+	var user User
+	global.DB.Where("username = ?", username).Find(&user)
+	return user.ID
 }

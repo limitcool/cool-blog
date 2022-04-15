@@ -14,7 +14,8 @@ type User struct {
 	Signature   string `json:"signature"`
 	Username    string `gorm:"unique" json:"username"  binding:"required"`
 	SnowFlakeId int64
-	Profile     Profile `json:"profile"`
+	Profile     Profile    `json:"profile"`
+	Articles    []Articles // 文章
 }
 
 func (u User) name() {
@@ -35,9 +36,10 @@ func (u User) Register() (User, error) { // 对密码进行MD5加密
 	// 生成雪花id
 	snowflakeId := snowflake.GenerateSnowFlakeId()
 	profile := Profile{
-		Desc: "",
-		Img:  "",
+		Desc: "default",
+		Img:  "default",
 	}
+	log.Println("41", u.Profile.Desc, u.Profile.Img)
 	user := User{
 		Password:    md5Password,
 		Username:    u.Username,
