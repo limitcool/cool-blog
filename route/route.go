@@ -69,7 +69,7 @@ func NewRouter() *gin.Engine {
 	{
 		r.POST("/profile/create", profile.Create)
 	}
-
+	// sleep
 	r.GET("/sleep", func(c *gin.Context) {
 		time.Sleep(10 * time.Second)
 		c.JSON(200, "OK!!")
