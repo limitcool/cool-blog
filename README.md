@@ -128,3 +128,15 @@ _ "github.com/limitcool/blog/bootstrap"
     }
 }
 ```
+
+### air热重启
+
+```bash
+# 安装air
+go install github.com/cosmtrek/air@latest
+# 新建文件.air.conf
+touch .air.conf
+# 在.air.conf添加以下内容
+
+```
+
