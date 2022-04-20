@@ -2,8 +2,8 @@ package model
 
 import (
 	"fmt"
-	"github.com/limitcool/blog/common/setting"
 	"github.com/limitcool/blog/global"
+	"github.com/limitcool/blog/internal/pkg/setting"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

@@ -3,9 +3,10 @@ package bootstrap
 import (
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
-	"github.com/limitcool/blog/common/setting"
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/model"
+	"github.com/limitcool/blog/internal/pkg/gredis"
+	"github.com/limitcool/blog/internal/pkg/setting"
 	"log"
 	"time"
 )
@@ -36,7 +37,7 @@ func init() {
 			log.Fatalf("init.setupSetting err: %v", err)
 		}
 	}
-	// 连接数据库
+	// 连接数据库:mysql
 	{
 		var err error
 		global.DB, err = model.NewDBEngine(global.DatabaseSetting)
@@ -45,7 +46,14 @@ func init() {
 		}
 	}
 	// 数据库自动创建
-	global.DB.AutoMigrate(&model.Articles{}, &model.User{}, &model.Profile{})
+	//global.DB.AutoMigrate(&model.Articles{}, &model.User{}, &model.Profile{})
+	// 连接数据库redis
+	{
+		err := gredis.Setup()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	//初始化casbin
 	{
 		var err error
@@ -78,7 +86,10 @@ func ReadConfigToSetting(setting *setting.Setting) error {
 	if err != nil {
 		return err
 	}
-
+	err = setting.ReadSection("Redis", &global.RedisSetting)
+	if err != nil {
+		return err
+	}
 	global.ServerSetting.ReadTimeout *= time.Second
 	global.ServerSetting.WriteTimeout *= time.Second
 	return nil

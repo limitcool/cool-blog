@@ -137,6 +137,8 @@ go install github.com/cosmtrek/air@latest
 # 新建文件.air.conf
 touch .air.conf
 # 在.air.conf添加以下内容
-
+go run main.go
+# 运行air
+air
 ```
 

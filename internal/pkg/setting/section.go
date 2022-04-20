@@ -53,6 +53,15 @@ type Pay struct {
 	AlipayPublicKey  string
 }
 
+// Redis配置
+type Redis struct {
+	Host        string
+	Password    string
+	MaxIdle     int
+	MaxActive   int
+	IdleTimeout time.Duration
+}
+
 // 解码key到struct
 func (s *Setting) ReadSection(k string, v interface{}) error {
 	err := s.vp.UnmarshalKey(k, v)

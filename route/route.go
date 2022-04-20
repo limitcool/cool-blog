@@ -7,7 +7,6 @@ import (
 	_ "github.com/limitcool/blog/docs"
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/controller"
-	dao "github.com/limitcool/blog/internal/dao"
 	"github.com/limitcool/blog/internal/middleware"
 	"github.com/limitcool/blog/route/api"
 	swaggerFiles "github.com/swaggo/files"
@@ -22,7 +21,6 @@ func NewRouter() *gin.Engine {
 	var (
 		articles = controller.NewArticleController()
 		user     = controller.NewUserController()
-		article  = dao.NewArticle()
 		profile  = controller.NewProfileController()
 	)
 	logfile, err := os.Create(global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt)
@@ -54,7 +52,7 @@ func NewRouter() *gin.Engine {
 		apiV1.POST("/create", articles.Create)
 		apiV1.POST("/new_create", articles.NewCreate)
 		// 获取指定文章
-		apiV1.GET("/:article_id", article.List)
+		apiV1.GET("/:article_id", articles.Get)
 		apiV1.GET("/author/:author_name", articles.Count)
 		// 获取文章列表
 		apiV1.GET("", articles.List)

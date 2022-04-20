@@ -1,14 +1,18 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/limitcool/blog/common/errcode"
 	response2 "github.com/limitcool/blog/common/response"
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/model"
+	"github.com/limitcool/blog/internal/pkg/gredis"
 	"github.com/limitcool/blog/internal/service"
+	"github.com/limitcool/blog/internal/service/cache_service"
 	"gorm.io/gorm"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -21,6 +25,41 @@ type ArticleController struct {
 type Articles struct {
 	PageOffset int `json:"page_offset"`
 	PageSize   int `json:"page_size"`
+}
+
+func (a ArticleController) Get(c *gin.Context) {
+	query := model.Articles{}
+	id := c.Param("article_id")
+	ids, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
+	// 接入redis缓存
+	var cacheArticle *model.Articles
+	cache := cache_service.Article{ID: uint(ids)}
+	key := cache.GetArticlesKey()
+	if gredis.Exists(key) {
+		data, err := gredis.Get(key)
+		if err != nil {
+			log.Println("GetHtml::gredis::Get", err)
+		} else {
+			json.Unmarshal(data, &cacheArticle)
+			c.JSON(http.StatusOK, cacheArticle)
+		}
+	} else {
+		// 数据不存在就在mysql查询并缓存到redis
+		query.ID = uint(ids)
+		err = query.Info()
+		if err != nil {
+			c.JSON(http.StatusOK, err)
+			return
+		}
+		// 缓存到redis 并设置超时时间
+		gredis.Set(key, query, 3600)
+		c.JSON(http.StatusOK, query)
+	}
+
 }
 
 // Create 新建文章 控制器

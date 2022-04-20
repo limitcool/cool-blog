@@ -1,7 +1,7 @@
 package global
 
 import (
-	"github.com/limitcool/blog/common/setting"
+	"github.com/limitcool/blog/internal/pkg/setting"
 )
 
 var (
@@ -10,4 +10,5 @@ var (
 	DatabaseSetting *setting.DatabaseSettingS
 	JwtSetting      *setting.JwtSettingS
 	PaySetting      *setting.Pay
+	RedisSetting    *setting.Redis
 )

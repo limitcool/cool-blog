@@ -122,7 +122,8 @@ func (a *Articles) Info() (err error) {
 		log.Println("输入的ID不正确")
 		return err
 	}
-	err = global.DB.Where("article_id = ?", a.ID).First(&a).Error
+	// Preload里面要填结构体名称
+	err = global.DB.Preload("Tags").Preload("Category").First(&a, a.ID).Error
 	if err != nil {
 		log.Println(err)
 		log.Println("查询失败")

@@ -16,6 +16,7 @@ require (
 	github.com/go-playground/validator/v10 v10.4.1
 	github.com/golang-jwt/jwt/v4 v4.3.0
 	github.com/gomarkdown/markdown v0.0.0-20220310201231-552c6011c0b8
+	github.com/gomodule/redigo v1.8.8
 	github.com/microcosm-cc/bluemonday v1.0.18
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/pkg/errors v0.9.1
