@@ -1,4 +1,4 @@
-package route
+package router
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/controller"
 	"github.com/limitcool/blog/internal/middleware"
-	"github.com/limitcool/blog/route/api"
+	"github.com/limitcool/blog/router/api"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"

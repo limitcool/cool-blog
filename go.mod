@@ -10,6 +10,7 @@ require (
 
 require (
 	github.com/bwmarrin/snowflake v0.3.0
+	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/go-pay/gopay v1.5.74
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
