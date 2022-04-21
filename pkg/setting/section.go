@@ -22,6 +22,8 @@ type AppSettingS struct {
 	UploadImageMaxSize      int
 	UploadImageAllowExts    []string
 	UploadMarkdownAllowExts []string
+	QrCodeSavePath          string
+	PrefixUrl               string
 }
 
 // 数据库配置

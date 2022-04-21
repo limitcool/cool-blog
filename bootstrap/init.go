@@ -5,8 +5,8 @@ import (
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/limitcool/blog/global"
 	"github.com/limitcool/blog/internal/model"
-	"github.com/limitcool/blog/internal/pkg/gredis"
-	"github.com/limitcool/blog/internal/pkg/setting"
+	"github.com/limitcool/blog/pkg/gredis"
+	"github.com/limitcool/blog/pkg/setting"
 	"log"
 	"time"
 )
@@ -46,13 +46,35 @@ func init() {
 		}
 	}
 	// 数据库自动创建
-	//global.DB.AutoMigrate(&model.Articles{}, &model.User{}, &model.Profile{})
+	global.DB.AutoMigrate(&model.Articles{}, &model.User{}, &model.Profile{}, &model.Comment{})
 	// 连接数据库redis
 	{
 		err := gredis.Setup()
 		if err != nil {
 			log.Fatal(err)
 		}
+	}
+	// test qrcode
+	//{
+	//	q := qrcode.NewQrCode("http://nmslwsnd.com", 200, 200, qr.M, qr.Auto)
+	//	path, name, err := q.Encode(qrcode.GetQrCodePath())
+	//	if err != nil {
+	//		log.Println(err)
+	//	}
+	//	log.Println(path, name)
+	//}
+	// test
+	{
+		//b := &model.BaseModel{ID: 1}
+		comment := model.Comment{
+			//BaseModel:  b,
+			UserID:     1,
+			Content:    "我是一条子评论",
+			Parent:     1,
+			ArticlesID: 139,
+		}
+		comment.ListSon()
+		//log.Fatal(comment.Create())
 	}
 	//初始化casbin
 	{

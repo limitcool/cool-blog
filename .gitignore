@@ -1,3 +1,4 @@
 configs/config.yaml
 storage/uploads/*
 storage/logs/*
+storage/fonts/msyhbd.ttc

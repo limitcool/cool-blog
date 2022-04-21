@@ -20,9 +20,10 @@ type Articles struct {
 	Author  string `json:"author"`  // 作者
 	Content string `json:"content"` // 文章内容
 	//MarkdownUrl string `json:"markdown_url"`                                // markdown上传后得到的url
-	Tags     []Tag    `gorm:"many2many:articles_tags" json:"tags"` // 标签
-	Category Category `json:"category"`                            // 分类
-	UserID   uint
+	Tags     []Tag     `gorm:"many2many:articles_tags" json:"tags"` // 标签
+	Category Category  `json:"category"`                            // 分类
+	UserID   uint      `json:"user_id"`
+	Comments []Comment `json:"comments"` // 评论
 }
 
 //func NewArticle(id int, title, author string) Article {
@@ -123,7 +124,7 @@ func (a *Articles) Info() (err error) {
 		return err
 	}
 	// Preload里面要填结构体名称
-	err = global.DB.Preload("Tags").Preload("Category").First(&a, a.ID).Error
+	err = global.DB.Preload("Tags").Preload("Category").Preload("Comments").First(&a, a.ID).Error
 	if err != nil {
 		log.Println(err)
 		log.Println("查询失败")

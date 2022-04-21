@@ -48,6 +48,7 @@ func NewRouter() *gin.Engine {
 	r.GET("/verifyCaptcha", captcha.CaptchaVerify)
 	r.POST("/upload/file", controller.NewUpload().UploadFile)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
+	r.StaticFS("/qrcode", http.Dir(global.AppSetting.QrCodeSavePath))
 	{
 		apiV1.POST("/create", articles.Create)
 		apiV1.POST("/new_create", articles.NewCreate)

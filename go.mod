@@ -9,12 +9,13 @@ require (
 )
 
 require (
+	github.com/boombuler/barcode v1.0.1
 	github.com/bwmarrin/snowflake v0.3.0
-	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/go-pay/gopay v1.5.74
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-playground/validator/v10 v10.4.1
+	github.com/goki/freetype v0.0.0-20220119013949-7a161fd3728c
 	github.com/golang-jwt/jwt/v4 v4.3.0
 	github.com/gomarkdown/markdown v0.0.0-20220310201231-552c6011c0b8
 	github.com/gomodule/redigo v1.8.8
