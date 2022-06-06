@@ -2,10 +2,11 @@ package model
 
 import (
 	"fmt"
-	"github.com/limitcool/blog/common"
-	"github.com/limitcool/blog/global"
 	"log"
 	"time"
+
+	"github.com/limitcool/blog/common"
+	"github.com/limitcool/blog/global"
 )
 
 //type Article struct {
@@ -20,10 +21,10 @@ type Articles struct {
 	Author  string `json:"author"`  // 作者
 	Content string `json:"content"` // 文章内容
 	//MarkdownUrl string `json:"markdown_url"`                                // markdown上传后得到的url
-	Tags     []Tag     `gorm:"many2many:articles_tags" json:"tags"` // 标签
-	Category Category  `json:"category"`                            // 分类
-	UserID   uint      `json:"user_id"`
-	Comments []Comment `json:"comments"` // 评论
+	Tags     []Tag     `gorm:"many2many:articles_tags" json:"tags,omitempty"` // 标签
+	Category Category  `json:"category,omitempty"`                            // 分类
+	UserID   uint      `json:"user_id,omitempty"`
+	Comments []Comment `json:"comments,omitempty"` // 评论
 }
 
 //func NewArticle(id int, title, author string) Article {
