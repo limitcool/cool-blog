@@ -2,6 +2,6 @@ package model
 
 type Category struct {
 	BaseModel
-	CategoryName string `json:"category_name"`
-	ArticlesID   uint   `json:"articles_id"`
+	CategoryName string `json:"category_name,omitempty"`
+	ArticlesID   uint   `json:"articles_id,omitempty"`
 }

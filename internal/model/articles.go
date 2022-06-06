@@ -21,8 +21,8 @@ type Articles struct {
 	Author  string `json:"author"`  // 作者
 	Content string `json:"content"` // 文章内容
 	//MarkdownUrl string `json:"markdown_url"`                                // markdown上传后得到的url
-	Tags     []Tag     `gorm:"many2many:articles_tags" json:"tags,omitempty"` // 标签
-	Category Category  `json:"category,omitempty"`                            // 分类
+	Tags     *[]Tag    `gorm:"many2many:articles_tags" json:"tags,omitempty"` // 标签
+	Category *Category `json:"category,omitempty"`                            // 分类
 	UserID   uint      `json:"user_id,omitempty"`
 	Comments []Comment `json:"comments,omitempty"` // 评论
 }
@@ -140,7 +140,7 @@ func (a *Articles) MarkdownToHtml() {
 }
 
 // GetTag 获取文章拥有的标签列表
-func (a *Articles) GetTag() []Tag {
+func (a *Articles) GetTag() *[]Tag {
 	//err := global.DB.Preload("Tags").Preload(clause.Associations).Where("article_id = ?", a.ArticleId).First(&a).Error
 	err := global.DB.Preload("Tags").Where("article_id = ?", a.ID).First(&a).Error
 	if err != nil {
