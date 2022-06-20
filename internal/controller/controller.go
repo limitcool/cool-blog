@@ -3,6 +3,10 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/limitcool/blog/common/errcode"
 	response2 "github.com/limitcool/blog/common/response"
@@ -12,9 +16,6 @@ import (
 	"github.com/limitcool/blog/internal/service/cache_service"
 	"github.com/limitcool/blog/pkg/gredis"
 	"gorm.io/gorm"
-	"log"
-	"net/http"
-	"strconv"
 )
 
 // ArticleController 定义一个控制器结构体
@@ -28,7 +29,7 @@ type Articles struct {
 }
 
 func (a ArticleController) Get(c *gin.Context) {
-	query := model.Articles{}
+	query := &model.Articles{}
 	id := c.Param("article_id")
 	ids, err := strconv.Atoi(id)
 	if err != nil {

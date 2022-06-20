@@ -2,6 +2,11 @@ package router
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/limitcool/blog/common/captcha"
 	_ "github.com/limitcool/blog/docs"
@@ -9,12 +14,9 @@ import (
 	"github.com/limitcool/blog/internal/controller"
 	"github.com/limitcool/blog/internal/middleware"
 	"github.com/limitcool/blog/router/api"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"log"
-	"net/http"
-	"os"
-	"time"
 )
 
 func NewRouter() *gin.Engine {
@@ -32,10 +34,14 @@ func NewRouter() *gin.Engine {
 	gin.SetMode("debug")
 	//gin.DefaultWriter = io.MultiWriter(logfile)
 	r.Use(gin.Logger(), gin.Recovery(), middleware.AppInfo())
+	// 使用prometheus中间件
+	p := middleware.NewPrometheus(r)
+	r.Use(p.Middleware())
 	r.Use(middleware.MaxAllowed(200)) //限制每秒最多允许200个请求
 	r.Use(middleware.Cors())
 	r.Use(middleware.ContextTimeout(5 * time.Second))
-
+	// prometheus监控 采集指标
+	r.GET("/metrics", gin.WrapH(promhttp.Handler()))
 	apiV1 := r.Group("/api/v1/articles/")
 	//apiV1.Use(middleware.JWT())
 	//apiV1.Use(middleware.CheckCasbinAuth())
@@ -74,5 +80,11 @@ func NewRouter() *gin.Engine {
 		c.JSON(200, "OK!!")
 	})
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.NoRoute(func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 404,
+			"msg":  "Nginx:1.20.1:Page not found",
+		})
+	})
 	return r
 }
