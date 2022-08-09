@@ -21,32 +21,54 @@
 ``` yaml
 # configs/config.yaml
 Server:
-RunMode: debug
-HttpPort: 8080
-ReadTimeout: 60
-WriteTimeout: 60
+  RunMode: debug
+  HttpPort: 8080
+  ReadTimeout: 60
+  WriteTimeout: 60
 App:
-DefaultPageSize: 10
-MaxPageSize: 100
-LogSavePath: storage/logs
-LogFileName: app
-LogFileExt: .log
+  DefaultPageSize: 10
+  MaxPageSize: 100
+  LogSavePath: storage/logs
+  LogFileName: app
+  LogFileExt: .log
+  # 上传服务
+  UploadSavePath: storage/uploads
+  UploadServerUrl: http://127.0.0.1:8080/static
+  UploadImageMaxSize: 5  # MB
+  UploadImageAllowExts:
+    - .jpg
+    - .jpeg
+    - .png
+  UploadMarkdownAllowExts:
+    - .md
+  QrCodeSavePath: storage/qrcode
+  PrefixUrl: 127.0.0.1:8080
 Database:
-DBType: mysql
-Username: username  # 填写你的数据库账号
-Password: password  # 填写你的数据库密码
-Host: 127.0.0.1:3306
-DBName: blog
-TablePrefix:
-Charset: utf8
-ParseTime: True
-LogMode: info
-MaxIdleConns: 10
-MaxOpenConns: 30
+  DBType: mysql
+  Username: username  # 填写你的数据库账号
+  Password: password  # 填写你的数据库密码
+  Host: host:3306 # 填写你的数据库地址
+  DBName: blog
+  TablePrefix:
+  Charset: utf8
+  ParseTime: True
+  LogMode: info
+  MaxIdleConns: 10
+  MaxOpenConns: 30
 Jwt:
-Secret: Secret# 密钥
-Issuer: blog.nmslwsnd.com #签发人
-Expire: 72000
+  Secret: initcool # 密钥
+  Issuer: blog.nmslwsnd.com
+  Expire: 72000
+Pay:
+  AlipayPrivateKey: # 支付宝私钥
+  AlipayAppId: 2021000119643838
+  AlipayPublicKey: # 支付宝公钥
+Redis:
+  Host: 127.0.0.1:6379
+  Password: 
+  MaxIdle: 30 # 最大空闲连接数
+  MaxActive: 0 # 在给定时间内，允许分配的最大连接数（当为零时，没有限制）
+  IdleTimeout: 0 # 在给定时间内将会保持空闲状态，若到达时间限制则关闭连接（当为零时，没有限制）
 ```
 
 ## 启动项目
